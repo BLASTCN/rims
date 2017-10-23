@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>base</title>
+    <style>
+        body, ul, li {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #fafafa;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .content-wrapper {
+            background-color: #333333;
+            height: 45px;
+        }
+
+        .content {
+            width: 1200px;
+            height: 45px;
+            background-color: #333333;
+            margin: 0 auto;
+        }
+
+        .content ul li {
+            float: left;
+        }
+
+        .content ul li a {
+            display: inline-block;
+            height: 45px;
+            text-decoration: none;
+            line-height: 45px;
+            font-size: 13px;
+            color: #ffffff;
+            text-align: center;
+            width: 150px;
+            margin-right: 24px;
+            margin-left: 24px;
+        }
+
+        .content ul li a:hover {
+            color: #969696;
+        }
+
+        .sub-content {
+            width: 100%;
+            height: 100px;
+            background-color: #f2f2f2;
+        }
+
+        .active {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="content">
+            <ul>
+                <li><a href="#">首页</a></li>
+                <li><a class="sub-item" href="#">传感器数据</a></li>
+                <li><a class="sub-item" href="#">机器人状态数据</a></li>
+                <li><a class="sub-item" href="#">工作环境信息</a></li>
+                <li><a class="sub-item" href="#">数据处理结果</a></li>
+                <li><a class="sub-item" href="#">决策数据</a></li>
+            </ul>
+        </div>
+        <div class="sub-content">
+            {% block sub-content %}
+
+            {% endblock %}
+        </div>
+    </div>
+</body>
+<script>
+    var subItems = document.querySelectorAll('.sub-item');
+    for (var i = 0; i < subItems.length; i++) {
+        var item = subItems[i];
+        item.addEventListener('click',function (event) {
+            var activeElment = document.querySelector('.active');
+            if(activeElment !== null){
+                //TODO 为什么classList不行？ 必须要用style.color?
+                activeElment.classList.remove('active');
+                activeElment.style.color = '#fff';
+            }
+            this.classList.add('active');
+            event.target.style.color = '#969696';
+        });
+    }
+</script>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #fafafa;
+        }
+
+        .container-fluid {
+            height: 50px;
+            background: #3C4049;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-content {
+            margin-top: 130px;
+            width: 500px;
+        }
+
+        .login-panel {
+            padding-top: 25px;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-extra {
+            width: 450px;
+            margin-top: 10px;
+            text-align: center;
+            font-size: 13px;
+            color: lightgrey;
+        }
+
+        .login-header .panel-body {
+            background-color: #3C4049;
+            border-radius: 4px;
+            font-size: 16px;
+            color: #E9E9E9;
+        }
+
+        .error-message {
+            position: absolute;
+            color: lightcoral;
+            font-size: 12px;
+            display: block;
+            margin-top: 1px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid page-header">
+            </div>
+        </div>
+    </div>
+    <div class="container login-content">
+        <div class="panel panel-default login-header">
+            <div class="panel-body">
+                用户登录
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="login-panel panel-body ">
+                <form method="post" action="/r01/login" role="form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;用户名：</label>
+                        <input type="text" id="username" name="user" class="form-control" placeholder="请输入用户名">
+                        <span class="error-message">{{ ulf.errors.user.0 }}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="password"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>&nbsp;&nbsp;密码：</label>
+                        <input type="password" id="password" name="pwd" class="form-control" placeholder="请输入密码">
+                        <span class="error-message">{{ ulf.errors.pwd.0 }}</span>
+                        <span class="error-message">{{ err_message }}</span>
+                    </div>
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-warning btn-large btn-login">登录</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="login-extra">
+            Copyright © 2017 X All rights reserved.
+        </div>
+    </div>
+</body>
+</html>
