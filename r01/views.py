@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django import forms
 from r01 import models
+import os
 import time
+
 
 class UserLoginForm(forms.Form):
     """登录表单验证"""
@@ -35,19 +37,41 @@ def login(request):
                 request.session['username'] = uname
                 request.session['is_login'] = True
                 request.session.set_expiry(60 * 60 * 24 * 3)
-                return redirect('/r01/sensor')
+                return redirect('/r01/index')
             else:
                 return render(request, 'login.html', {'err_message': '用户名或密码错误'})
         else:
             return render(request, 'login.html', {'ulf': ulf_obj})
 
 
-def sensor_data(request):
-    """登录后主页"""
-    if request.session.get('is_login', None):
-        return render(request, 'sensor/infrared-data.html', {'username': request.session['username']})
-    else:
-        return redirect('/r01/login')
+def home(request):
+    """主页"""
+    pass
+
+
+def sensor(request):
+    """传感器页面"""
+    return render(request, 'sensor.html')
+
+
+def state(request):
+    """机器人状态数据"""
+    return render(request, 'state.html')
+
+
+def envir(request):
+    """工作环境信息"""
+    return render(request, 'envir.html')
+
+
+def data_result(request):
+    """数据处理结果"""
+    return render(request, 'result.html')
+
+
+def tactic(request):
+    """策略决策"""
+    return render(request, 'tactic.html')
 
 
 def register_user(request):

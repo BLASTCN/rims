@@ -1,0 +1,52 @@
+<style>
+    .lst-content-wrapper {
+        width: 1200px;
+        height: 50px;
+        margin: 0 auto;
+    }
+
+    .lst-content {
+        width: 260px;
+        margin: 0 auto;
+    }
+
+    .lst-content ul {
+        list-style: none;
+    }
+
+    .lst-content ul li a {
+        text-decoration: none;
+        display: inline-block;
+        float: left;
+        line-height: 50px;
+        color: #333333;
+        font-size: 12px;
+        margin: 0 30px;
+        text-align: center;
+    }
+
+    .lst-content ul li a:hover {
+        color: #0072C6;
+    }
+
+</style>
+{% extends 'base.html' %}
+{% block title %}
+    数据处理结果
+{% endblock %}
+{% block sub-list %}
+    <div class="lst-content-wrapper">
+        <div class="lst-content">
+            <ul>
+                <li><a href="#">数据处理结果</a></li>
+                <li><a href="#">实验结果</a></li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+{% block change-color %}
+    <script>
+        var activeElement = document.getElementsByClassName('sub-item')[3];
+        activeElement.style.color = '#9a9a9a'
+    </script>
+{% endblock %}

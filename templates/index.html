@@ -1,0 +1,50 @@
+<style>
+    .lst-content-wrapper {
+        width: 1200px;
+        height: 50px;
+        margin: 0 auto;
+    }
+
+    .lst-content {
+        width: 800px;
+        margin: 0 auto;
+    }
+
+    .lst-content ul {
+        list-style: none;
+    }
+
+    .lst-content ul li a {
+        text-decoration: none;
+        display: inline-block;
+        float: left;
+        line-height: 50px;
+        color: #333333;
+        font-size: 12px;
+        margin: 3px 20px 0;
+    }
+
+    .lst-content ul li a:hover {
+        color: #0072C6;
+    }
+
+</style>
+{% extends 'base.html' %}
+{% block title %}
+    主页
+{% endblock %}
+{% block sub-list %}
+    <div class="lst-content-wrapper">
+        <div class="lst-content">
+            <ul>
+                <li><a href="#">红外传感器</a></li>
+                <li><a href="#">超声传感器</a></li>
+                <li><a href="#">激光传感器</a></li>
+                <li><a href="#">向前视觉传感器</a></li>
+                <li><a href="#">全景视觉传感器</a></li>
+                <li><a href="#">Kinect彩色数据</a></li>
+                <li><a href="#">Kinect深度数据</a></li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
