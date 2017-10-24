@@ -6,6 +6,26 @@ from r01 import models
 import time
 import json
 
+# 生成tabs所需数据
+tab_names = [
+    ['序号', '采集时间', '机器人号', '机器人位姿', '传感器01', '传感器02', '传感器03', '传感器04', '传感器05', '传感器06', '传感器07', '传感器08', '传感器09',
+     '传感器11', '传感器12', '传感器13', '传感器14', '传感器15', '传感器16', '传感器17', '传感器18', '传感器19', '传感器20', '传感器21', '传感器22',
+     '传感器23', '传感器24'],
+    ['序号', '采集时间', '机器人号', '机器人位姿', '场景', '数据文件名', '数据文件路径', '区域01', '区域02', '区域03'],
+    ['序号', '采集时间', '机器人号', '机器人位姿', '场景', '文件名', '图像路径'],
+    ['序号', '采集时间', '机器人号', '机器人位姿', '场景', '深度数据文件名', '深度数据路径', '映射图像文件名', '映射图像路径']
+]
+
+m2t_dict = {
+    'infraredsensor': tab_names[0],
+    'ultrasonicsensor': tab_names[0],
+    'lasersensor': tab_names[1],
+    'forwardvisionsensor': tab_names[2],
+    'overallviewsensor': tab_names[2],
+    'kinectvideosensor': tab_names[2],
+    'kinectdeepsensor': tab_names[3]
+}
+
 
 class UserLoginForm(forms.Form):
     """登录表单验证"""
@@ -55,28 +75,8 @@ def sensor(request):
     return render(request, 'sensor.html')
 
 
-tab_names = [
-    ['序号', '采集时间', '机器人号', '机器人位姿', '传感器01', '传感器02', '传感器03', '传感器04', '传感器05', '传感器06', '传感器07', '传感器08', '传感器09',
-     '传感器11', '传感器12', '传感器13', '传感器14', '传感器15', '传感器16', '传感器17', '传感器18', '传感器19', '传感器20', '传感器21', '传感器22',
-     '传感器23', '传感器24'],
-    ['序号', '采集时间', '机器人号', '机器人位姿', '场景', '数据文件名', '数据文件路径', '区域01', '区域02', '区域03'],
-    ['序号', '采集时间', '机器人号', '机器人位姿', '场景', '文件名', '图像路径'],
-    ['序号', '采集时间', '机器人号', '机器人位姿', '场景', '深度数据文件名', '深度数据路径', '映射图像文件名', '映射图像路径']
-]
-
-
 def sensor_detail(request, sname):
     """传感器详情"""
-    # TODO 为什么局部列表变量不行 tab_names ？？？
-    m2t_dict = {
-        'InfraredSensor': tab_names[0],
-        'UltrasonicSensor': tab_names[0],
-        'LaserSensor': tab_names[1],
-        'ForwardVisionSensor': tab_names[2],
-        'OverallViewSensor': tab_names[2],
-        'KinectVideoSensor': tab_names[2],
-        'KinectDeepSensor': tab_names[3]
-    }
     # 封装返回的json数据
     res = {'status': True, 'error': None, 'tabs': None, 'data': None}
     try:
@@ -86,11 +86,12 @@ def sensor_detail(request, sname):
     except LookupError as e:
         res['status'] = False
         res['error'] = e.__str__()
-    return HttpResponse()
+    return HttpResponse(json.dumps(res), content_type='application/json')
 
 
-def fetch_data(table_name):
+def fetch_data(tname):
     """返回相应的数据"""
+    # TODO 如何将字符串表名称直接进行使用
     return 'None'
 
 
@@ -115,7 +116,7 @@ def tactic(request):
 
 
 def register_user(request):
-    """用户注册 暂没开放"""
+    """用户注册 暂不开放"""
     if request.method == 'POST':
         format_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
         uname = request.POST.get('user')

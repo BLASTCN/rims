@@ -9,105 +9,19 @@
     <div class="lst-content-wrapper">
         <div class="lst-content">
             <ul>
-                <li><a class="item active" href="#">红外传感器</a></li>
-                <li><a class="item" href="#">超声传感器</a></li>
-                <li><a class="item" href="#">激光传感器</a></li>
-                <li><a class="item" href="#">向前视觉传感器</a></li>
-                <li><a class="item" href="#">全景视觉传感器</a></li>
-                <li><a class="item" href="#">Kinect彩色数据</a></li>
-                <li><a class="item" href="#">Kinect深度数据</a></li>
+                <li value="infraredsensor"><a class="item active" href="javascript:void(0)">红外传感器</a></li>
+                <li value="ultrasonicsensor"><a class="item" href="javascript:void(0)">超声传感器</a></li>
+                <li value="lasersensor"><a class="item" href="javascript:void(0)">激光传感器</a></li>
+                <li value="forwardvisionsensor"><a class="item" href="javascript:void(0)">向前视觉传感器</a></li>
+                <li value="overallviewsensor"><a class="item" href="javascript:void(0)">全景视觉传感器</a></li>
+                <li value="kinectvideosensor"><a class="item" href="javascript:void(0)">Kinect彩色数据</a></li>
+                <li value="kinectdeepsensor"><a class="item" href="javascript:void(0)">Kinect深度数据</a></li>
             </ul>
         </div>
     </div>
     <div class="table-container">
         <table>
             <thead>
-            <tr>
-                <th>
-                    <div class="th-content">序号</div>
-                </th>
-                <th>
-                    <div class="th-content">采集时间</div>
-                </th>
-                <th>
-                    <div class="th-content">机器人号</div>
-                </th>
-                <th>
-                    <div class="th-content">机器人位姿</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器01</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器02</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器03</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器04</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器05</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器06</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器07</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器08</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器09</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器10</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器11</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器12</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器13</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器14</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器15</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器16</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器17</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器18</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器19</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器20</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器21</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器22</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器23</div>
-                </th>
-                <th>
-                    <div class="th-content">传感器24</div>
-                </th>
-            </tr>
             </thead>
             <tbody>
             <tr>
@@ -192,14 +106,8 @@
                 <td>
                     <div class="td-content">内容</div>
                 </td>
-                <td>
-                    <div class="td-content">内容</div>
-                </td>
             </tr>
             <tr>
-                <td>
-                    <div class="td-content">内容</div>
-                </td>
                 <td>
                     <div class="td-content">内容</div>
                 </td>
@@ -288,8 +196,68 @@
 {% endblock %}
 {% block change-color %}
     <script>
-        var activeElement = document.getElementsByClassName('sub-item')[0];
-        activeElement.style.color = '#9a9a9a';
+        window.onload = function () {
+            let activeElement = document.getElementsByClassName('sub-item')[0];
+            activeElement.style.color = '#9a9a9a';
+
+            // Ajax 数据请求
+            let HttpClient = function () {
+                this.baseUrl = '/r01/sensor-';
+            };
+
+            HttpClient.prototype.get = function (param, callback) {
+                let url = `${this.baseUrl}` + param;
+                let r = new XMLHttpRequest();
+                r.responseType = 'json';
+                r.open('GET', url, true);
+                r.onreadystatechange = function () {
+                    if (r.readyState === 4) {
+                        callback(r.response);
+                    }
+                };
+                r.send();
+            };
+
+            let client = new HttpClient();
+
+            // 为所有link添加事件
+            let links = document.getElementsByClassName('item');
+            for (let i = 0; i < links.length; i++) {
+                let link = links[i];
+                link.addEventListener('click', function (event) {
+                    let param = event.target.parentNode.getAttribute('value');
+                    //发送get请求
+                    client.get(param, function (response) {
+                        console.log(response);
+                        if (response.status) {
+                            //清空thead中的内容
+                            let elem = document.getElementsByTagName('thead')[0];
+                            elem.innerHTML = '';
+                            doTableHead(response.tabs)
+                        } else {
+                            alert(response.error)
+                        }
+                    });
+                });
+            }
+
+            //生成table表头
+            let doTableHead = function (tabNames) {
+                //读取信息生成th插入到table中
+                let elemTr = document.createElement('tr');
+                for (let j = 0; j < tabNames.length; j++) {
+                    let elemTh = document.createElement('th');
+                    let elemDiv = document.createElement('div');
+                    elemDiv.innerHTML = `${tabNames[j]}`;
+                    elemDiv.classList.add('th-content');
+                    elemTh.appendChild(elemDiv);
+                    elemTr.appendChild(elemTh);
+                }
+                let elemThead = document.getElementsByTagName('thead')[0];
+                elemThead.appendChild(elemTr);
+            }
+        };
     </script>
+    <script src="/static/js/jquery-3.2.1.min.js"></script>
     <script src="/static/js/items.js"></script>
 {% endblock %}

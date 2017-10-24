@@ -51,8 +51,7 @@ table, tr, th, td, thead {
 }
 
 .table-container .td-content {
-    min-width: 100px;
-    width: auto;
+    width: 100px;
     height: 30px;
     text-align: center;
     white-space: nowrap;
@@ -61,7 +60,7 @@ table, tr, th, td, thead {
 }
 
 .table-container .th-content {
-    min-width: 100px;
+    min-width: 0;
     width: auto;
     height: 30px;
     text-align: center;
