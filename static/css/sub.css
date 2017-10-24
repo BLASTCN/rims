@@ -39,19 +39,23 @@ table, tr, th, td, thead {
     width: 90%;
     height: 600px;
     margin: 40px auto;
-    border: 1px solid #727272;
+    border: 1px solid #cbcbcb;
     text-align: center;
     overflow: auto;
-    border-radius: 4px;
+    border-radius: 5px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
 }
 
 .table-container table {
-    border-radius: 4px;
     border-collapse: collapse;
 }
 
+.table-container tbody tr:hover {
+    background-color: #f0f0f0;
+}
+
 .table-container .td-content {
-    width: 100px;
+    min-width: 100px;
     height: 30px;
     text-align: center;
     white-space: nowrap;
@@ -60,7 +64,7 @@ table, tr, th, td, thead {
 }
 
 .table-container .th-content {
-    min-width: 0;
+    min-width: 100px;
     width: auto;
     height: 30px;
     text-align: center;
@@ -70,10 +74,11 @@ table, tr, th, td, thead {
 }
 
 .table-container th {
-    border: 1px solid #DDD;
-    border-bottom: 3px;
+    border-right: 1px solid #DDD;
+    border-bottom: 3px solid #cbcbcb;
 }
 
 .table-container td {
-    border: 1px solid #DDD;
+    border-right: 1px solid #DDD;
+    border-bottom: 1px solid #DDD;
 }
