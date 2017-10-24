@@ -1,0 +1,80 @@
+table, tr, th, td, thead {
+    margin: 0;
+    padding: 0;
+}
+
+.lst-content-wrapper {
+    width: 1200px;
+    height: 50px;
+    margin: 0 auto;
+}
+
+.lst-content {
+    width: 860px;
+    height: 50px;
+    margin: 0 auto;
+}
+
+.lst-content ul {
+    list-style: none;
+}
+
+.lst-content ul li a {
+    text-decoration: none;
+    display: inline-block;
+    float: left;
+    line-height: 50px;
+    color: #333333;
+    font-size: 12px;
+    width: 100px;
+    margin: 0 10px;
+    text-align: center;
+}
+
+.lst-content ul li a:hover {
+    color: #0072C6;
+}
+
+.table-container {
+    width: 90%;
+    height: 600px;
+    margin: 40px auto;
+    border: 1px solid #727272;
+    text-align: center;
+    overflow: auto;
+    border-radius: 4px;
+}
+
+.table-container table {
+    border-radius: 4px;
+    border-collapse: collapse;
+}
+
+.table-container .td-content {
+    min-width: 100px;
+    width: auto;
+    height: 30px;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 30px;
+    font-size: 12px;
+}
+
+.table-container .th-content {
+    min-width: 100px;
+    width: auto;
+    height: 30px;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 30px;
+    font-size: 12px;
+}
+
+.table-container th {
+    border: 1px solid #DDD;
+    border-bottom: 3px;
+}
+
+.table-container td {
+    border: 1px solid #DDD;
+}

@@ -10,4 +10,6 @@ urlpatterns = [
     url(r'^envir', views.envir),
     url(r'^result', views.data_result),
     url(r'^tactic', views.tactic),
+    # 传感器详细信息
+    url(r'^sensor-detail-(?P<sname>\w+)', views.sensor_detail),
 ]

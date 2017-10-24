@@ -1,36 +1,7 @@
-<style>
-    .lst-content-wrapper {
-        width: 1200px;
-        height: 50px;
-        margin: 0 auto;
-    }
-
-    .lst-content {
-        width: 260px;
-        margin: 0 auto;
-    }
-
-    .lst-content ul {
-        list-style: none;
-    }
-
-    .lst-content ul li a {
-        text-decoration: none;
-        display: inline-block;
-        float: left;
-        line-height: 50px;
-        color: #333333;
-        font-size: 12px;
-        margin: 0 30px;
-        text-align: center;
-    }
-
-    .lst-content ul li a:hover {
-        color: #0072C6;
-    }
-
-</style>
 {% extends 'base.html' %}
+{% block sub-style %}
+    /static/css/sub.css
+{% endblock %}
 {% block title %}
     数据处理结果
 {% endblock %}

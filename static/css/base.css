@@ -3,6 +3,11 @@ body, ul, li {
     padding: 0;
 }
 
+table, tr, th, td {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     background-color: #fafafa;
