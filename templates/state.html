@@ -38,10 +38,10 @@
     <div class="lst-content-wrapper">
         <div class="lst-content">
             <ul>
-                <li><a href="#">机器人信息</a></li>
-                <li><a href="#">机器人工作信息</a></li>
-                <li><a href="#">机器人任务信息</a></li>
-                <li><a href="#">传感器信息</a></li>
+                <li><a class="item active" href="#">机器人信息</a></li>
+                <li><a class="item" href="#">机器人工作信息</a></li>
+                <li><a class="item" href="#">机器人任务信息</a></li>
+                <li><a class="item" href="#">传感器信息</a></li>
             </ul>
         </div>
     </div>
@@ -51,4 +51,5 @@
         var activeElement = document.getElementsByClassName('sub-item')[1];
         activeElement.style.color = '#9a9a9a'
     </script>
+    <script src="/static/js/items.js"></script>
 {% endblock %}

@@ -37,7 +37,7 @@ def login(request):
                 request.session['username'] = uname
                 request.session['is_login'] = True
                 request.session.set_expiry(60 * 60 * 24 * 3)
-                return redirect('/r01/index')
+                return redirect('/r01/sensor')
             else:
                 return render(request, 'login.html', {'err_message': '用户名或密码错误'})
         else:

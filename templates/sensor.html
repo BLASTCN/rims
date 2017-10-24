@@ -31,6 +31,26 @@
         color: #0072C6;
     }
 
+    .table-container {
+        width: 100%;
+        height: 500px;
+        border: 1px solid lightcoral;
+        margin: 30px auto;
+        text-align: center;
+        overflow: auto;
+        border-radius: 3px;
+    }
+
+    .table-container table {
+        width: auto;
+    }
+
+    .table-container td {
+        width: 100px;
+        height: 30px;
+        border: 1px solid lightgreen;
+        text-align: center;
+    }
 </style>
 {% extends 'base.html' %}
 {% block title %}
@@ -40,20 +60,134 @@
     <div class="lst-content-wrapper">
         <div class="lst-content">
             <ul>
-                <li><a href="#">红外传感器</a></li>
-                <li><a href="#">超声传感器</a></li>
-                <li><a href="#">激光传感器</a></li>
-                <li><a href="#">向前视觉传感器</a></li>
-                <li><a href="#">全景视觉传感器</a></li>
-                <li><a href="#">Kinect彩色数据</a></li>
-                <li><a href="#">Kinect深度数据</a></li>
+                <li><a class="item active" href="#">红外传感器</a></li>
+                <li><a class="item" href="#">超声传感器</a></li>
+                <li><a class="item" href="#">激光传感器</a></li>
+                <li><a class="item" href="#">向前视觉传感器</a></li>
+                <li><a class="item" href="#">全景视觉传感器</a></li>
+                <li><a class="item" href="#">Kinect彩色数据</a></li>
+                <li><a class="item" href="#">Kinect深度数据</a></li>
             </ul>
         </div>
+    </div>
+    <div class="table-container">
+        <table>
+            <tr>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+            </tr>
+            <tr>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+            </tr>
+            <tr>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+                <td>你好</td>
+            </tr>
+        </table>
     </div>
 {% endblock %}
 {% block change-color %}
     <script>
         var activeElement = document.getElementsByClassName('sub-item')[0];
-        activeElement.style.color = '#9a9a9a'
+        activeElement.style.color = '#9a9a9a';
     </script>
+    <script src="/static/js/items.js"></script>
 {% endblock %}

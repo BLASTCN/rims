@@ -39,10 +39,10 @@
     <div class="lst-content-wrapper">
         <div class="lst-content">
             <ul>
-                <li><a href="#">障碍物识别表</a></li>
-                <li><a href="#">识别目标物表</a></li>
-                <li><a href="#">局部地图表</a></li>
-                <li><a href="#">全局地图表</a></li>
+                <li><a class="item active" href="#">障碍物识别表</a></li>
+                <li><a class="item" href="#">识别目标物表</a></li>
+                <li><a class="item" href="#">局部地图表</a></li>
+                <li><a class="item" href="#">全局地图表</a></li>
             </ul>
         </div>
     </div>
@@ -52,4 +52,5 @@
         var activeElement = document.getElementsByClassName('sub-item')[2];
         activeElement.style.color = '#9a9a9a'
     </script>
+    <script src="/static/js/items.js"></script>
 {% endblock %}
