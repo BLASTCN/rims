@@ -196,11 +196,12 @@
 {% endblock %}
 {% block change-color %}
     <script>
-        window.onload = function () {
-            let activeElement = document.getElementsByClassName('sub-item')[0];
-            activeElement.style.color = '#9a9a9a';
+        let activeElement = document.getElementsByClassName('sub-item')[0];
+        activeElement.style.color = '#9a9a9a';
 
-            // 封装 Ajax 数据请求
+        // 封装 Ajax 数据请求
+        let makeHttpClient = function () {
+            //创建对象
             let HttpClient = function () {
                 this.baseUrl = '/r01/sensor-';
             };
@@ -217,10 +218,11 @@
                 };
                 r.send();
             };
+            return new HttpClient();
+        };
 
-            let client = new HttpClient();
-
-            // 为所有link添加事件
+        // 为所有link添加事件
+        let bindLinkClickEvent = function () {
             let links = document.getElementsByClassName('item');
             for (let i = 0; i < links.length; i++) {
                 let link = links[i];
@@ -229,10 +231,6 @@
                     //发送get请求
                     client.get(param, function (response) {
                         if (response.status) {
-                            //清空thead中的内容
-                            let elem = document.getElementsByTagName('thead')[0];
-                            elem.innerHTML = '';
-                            //TODO 修改为不使用循环嵌套
                             doTableHead(response.tabs)
                         } else {
                             alert(response.error)
@@ -240,49 +238,54 @@
                     });
                 });
             }
+        };
 
-            let doGetRequest = function (param) {
-                client.get(param, function (response) {
-                    if (response.status) {
-                        //清空thead中的内容
-                        let elem = document.getElementsByTagName('thead')[0];
-                        elem.innerHTML = '';
-                        //TODO 修改为不使用循环嵌套
-                        doTableHead(response.tabs)
-                    } else {
-                        alert(response.error)
-                    }
-                });
-            };
-
-            //生成table表头
-            let doTableHead = function (tabNames) {
-                //获取当前宽度
-                let newWidth = adjWidth(tabNames);
-                //读取信息生成th插入到table中
-                let elemTr = document.createElement('tr');
-                for (let j = 0; j < tabNames.length; j++) {
-                    let elemTh = document.createElement('th');
-                    let elemDiv = document.createElement('div');
-                    elemDiv.style.width = newWidth + 'px';
-                    elemDiv.innerHTML = `${tabNames[j]}`;
-                    elemDiv.classList.add('th-content');
-                    elemTh.appendChild(elemDiv);
-                    elemTr.appendChild(elemTh);
+        let doGetRequest = function (param) {
+            client.get(param, function (response) {
+                if (response.status) {
+                    doTableHead(response.tabs)
+                } else {
+                    alert(response.error)
                 }
-                let elemThead = document.getElementsByTagName('thead')[0];
-                elemThead.appendChild(elemTr);
-            };
+            });
+        };
 
-            //处理table和container边框适配问题
-            let adjWidth = function (tabNames) {
-                let container = document.getElementsByClassName('table-container')[0];
-                let itemWidth = container.clientWidth / tabNames.length;
-                if (itemWidth <= 110) {
-                    itemWidth = 110;
-                }
-                return Math.ceil(itemWidth);
+        let client = makeHttpClient();
+
+        //完成第一次数据请求
+        doGetRequest('infraredsensor');
+        bindLinkClickEvent();
+
+        //生成table表头
+        let doTableHead = function (tabNames) {
+            //清空thead中的内容
+            let elem = document.getElementsByTagName('thead')[0];
+            elem.innerHTML = '';
+            //获取当前宽度
+            let newWidth = adjWidth(tabNames);
+            //读取信息生成th插入到table中
+            let elemTr = document.createElement('tr');
+            for (let j = 0; j < tabNames.length; j++) {
+                let elemTh = document.createElement('th');
+                let elemDiv = document.createElement('div');
+                elemDiv.style.width = newWidth + 'px';
+                elemDiv.innerHTML = `${tabNames[j]}`;
+                elemDiv.classList.add('th-content');
+                elemTh.appendChild(elemDiv);
+                elemTr.appendChild(elemTh);
             }
+            let elemThead = document.getElementsByTagName('thead')[0];
+            elemThead.appendChild(elemTr);
+        };
+
+        //处理table和container边框适配问题
+        let adjWidth = function (tabNames) {
+            let container = document.getElementsByClassName('table-container')[0];
+            let itemWidth = container.clientWidth / tabNames.length;
+            if (itemWidth <= 110) {
+                itemWidth = 110;
+            }
+            return Math.ceil(itemWidth);
         };
     </script>
     <script src="/static/js/jquery-3.2.1.min.js"></script>
