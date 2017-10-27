@@ -30,10 +30,10 @@ let bindLinkClickEvent = function () {
         link.addEventListener('click', function (event) {
             let param = event.target.parentNode.getAttribute('value');
             //发送get请求
-            doGetRequest('HAAHH', function (response) {
+            doGetRequest(param, function (response) {
                 if (response.status) {
                     doTableHead(response.tabs);
-                    doTableBody(response.data);
+                    doTableBody(response.content);
                 } else {
                     alert(response.error)
                 }
@@ -48,14 +48,16 @@ let doGetRequest = function (param, callback) {
 };
 
 //生成table的内容
-let doTableBody = function (data) {
-    console.log(data);
+let doTableBody = function (contentList) {
     let bodyElement = document.getElementsByTagName('tbody')[0];
-    let dataStr = JSON.parse(data);
-    console.log(data);
-    for (let i = 0; i < dataStr.length; i++) {
-        let dataDict = dataStr[i].fields;
+    bodyElement.innerHTML = '';
+    for (let i = 0; i < contentList.length; i++) {
         let trElement = document.createElement('tr');
+        let firTd = document.createElement('td');
+        firTd.classList.add('td-content');
+        firTd.innerHTML = contentList[i]['id'];
+        trElement.appendChild(firTd);
+        let dataDict = contentList[i]['data'];
         for (let key in dataDict) {
             let tdElement = document.createElement('td');
             tdElement.classList.add('td-content');
@@ -104,7 +106,7 @@ let getNewWidth = function (tabNames) {
 
 let __main = function () {
     initColor();
-    doGetRequest('infraredsensor', function (response) {
+    doGetRequest('InfraredSensor', function (response) {
         if (response.status) {
             doTableHead(response.tabs)
         } else {

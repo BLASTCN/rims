@@ -9,6 +9,7 @@ from django.core import serializers
 
 tab_names = [
     ['序号', '采集时间', '机器人号', '机器人位姿', '传感器01', '传感器02', '传感器03', '传感器04', '传感器05', '传感器06', '传感器07', '传感器08', '传感器09',
+     '传感器10',
      '传感器11', '传感器12', '传感器13', '传感器14', '传感器15', '传感器16', '传感器17', '传感器18', '传感器19', '传感器20', '传感器21', '传感器22',
      '传感器23', '传感器24'],
     ['序号', '采集时间', '机器人号', '机器人位姿', '场景', '数据文件名', '数据文件路径', '区域01', '区域02', '区域03'],
@@ -77,35 +78,27 @@ def sensor(request):
 
 def sensor_detail(request, sname):
     """传感器详情"""
-    # 封装返回的json数据
     res = build_sensor_json(sname)
     return HttpResponse(res, content_type='application/json')
 
 
 def build_sensor_json(sname):
     """生成json数据"""
-    res = {'status': True, 'error': None, 'tabs': None, 'data': None}
+    res = {'status': True, 'error': None, 'tabs': None, 'content': None}
     try:
-        # 获取数据库中的数据
         objs = eval('models.' + sname + '.objects.all()')
         # object - (serialize) -> str - (json.loads) -> list
-        serialize_data = serializers.serialize('json', objs)
-        # type list
-        json_data = json.loads(serialize_data)
-        print(json_data)
+        serialize_lst = json.loads(serializers.serialize('json', objs))
         res['tabs'] = m2t_dict[sname]
-        res['data'] = serializers.serialize('json', objs)
+        content_lst = []
+        for item_dict in serialize_lst:
+            template_dict = {'id': item_dict['pk'], 'data': item_dict['fields']}
+            content_lst.append(template_dict)
+        res['content'] = content_lst
     except LookupError as e:
         res['status'] = False
         res['error'] = e.__str__()
     return json.dumps(res)
-
-
-def fetch_data(tname):
-    """返回相应的数据"""
-    # TODO 如何将字符串表名称直接进行使用
-    models.InfraredSensor.objects.all()
-    return 'None'
 
 
 def state(request):
