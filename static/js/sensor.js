@@ -20,6 +20,20 @@ let HttpClient = function () {
         r.open('GET', url, true);
         r.send();
     };
+
+    client.prototype.post = function (path, callback, data) {
+        let url = `${this.baseUrl}` + path;
+        let r = new XMLHttpRequest();
+        r.open('POST', url, data);
+        r.setRequestHeader('Content-Type', 'application/json');
+        r.onreadystatechange = function () {
+            if (r.readyState === 4) {
+                callback(r.response);
+            }
+        };
+        let d = JSON.stringify(data);
+        r.send(d);
+    };
     return new client();
 };
 
@@ -45,6 +59,11 @@ let bindLinkClickEvent = function () {
 let doGetRequest = function (param, callback) {
     let client = HttpClient();
     client.get(param, callback);
+};
+
+let doPostRequest = function (param, callback, data) {
+    let client = HttpClient();
+    client.post(param, callback, data)
 };
 
 //生成table的内容
@@ -75,6 +94,7 @@ let doTableBody = function (contentList) {
 
 //生成table表头
 let doTableHead = function (tabNames) {
+    alert('head');
     let elem = document.getElementsByTagName('thead')[0];
     elem.innerHTML = '';
     //获取当前宽度
@@ -104,16 +124,39 @@ let getNewWidth = function (tabNames) {
     return Math.ceil(itemWidth);
 };
 
+//翻页
+let bindPageClickEvent = function () {
+    let pageInput = document.getElementById('pageNum');
+    let prevSpan = document.getElementById('prev');
+    let nextSpan = document.getElementById('next');
+    prevSpan.addEventListener('click', function (event) {
+        let currentPage = parseInt(pageInput.value);
+        console.log(currentPage);
+        let newPage = currentPage - 1;
+        let path = document.getElementsByClassName('sub-nav-active')[0].parentNode.getAttribute('value');
+        path.setAttribute('value', newPage);
+        let data = {'pageNume': currentPage - 1};
+        doPostRequest(path, function (response) {
+            doTableBody(response.content)
+        }, data)
+    });
+    nextSpan.addEventListener('click', function () {
+        let value = document.getElementsByClassName('sub-nav-active')[0].parentNode.getAttribute('value');
+        console.log(value)
+    })
+};
+
 let __main = function () {
     initColor();
     doGetRequest('InfraredSensor', function (response) {
         if (response.status) {
-            doTableHead(response.tabs)
+            doTableHead(response.tabs);
         } else {
             alert(response.error)
         }
     });
     bindLinkClickEvent();
+    bindPageClickEvent();
 };
 
 __main();

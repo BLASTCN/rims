@@ -59,3 +59,37 @@ li {
 .active {
     color: #969696;
 }
+
+#paginationWrapper {
+    margin: 0 auto 50px;
+    width: 500px;
+    text-align: center;
+}
+
+#pagination {
+    width: 200px;
+    margin: 0 auto;
+}
+
+#paginationWrapper span {
+    display: inline-block;
+    width: 70px;
+    border: 1px solid #cbcbcb;;
+    border-radius: 4px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+#pagination input{
+    display: none;
+}
+
+#paginationWrapper span:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    color: #434343;
+    background-color: #f6f6f6;
+    font-weight: 500;
+}

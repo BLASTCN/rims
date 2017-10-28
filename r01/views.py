@@ -86,7 +86,7 @@ def build_sensor_json(sname):
     """生成json数据"""
     res = {'status': True, 'error': None, 'tabs': None, 'content': None}
     try:
-        objs = eval('models.' + sname + '.objects.all()')
+        objs = fetch_data(sname)
         # object - (serialize) -> str - (json.loads) -> list
         serialize_lst = json.loads(serializers.serialize('json', objs))
         res['tabs'] = m2t_dict[sname]
@@ -99,6 +99,12 @@ def build_sensor_json(sname):
         res['status'] = False
         res['error'] = e.__str__()
     return json.dumps(res)
+
+
+def fetch_data(tname):
+    """从数据库中获取数据"""
+    objs = eval('models.' + tname + '.objects.all()[:1]')
+    return objs
 
 
 def state(request):
